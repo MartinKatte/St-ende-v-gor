@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <title>Stående vågor – laborera med våglängd</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="content.js" defer></script>
+  <script src="physics.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="./" aria-label="Stående vågor, startsida">
+      <span class="wordmark-icon" aria-hidden="true">∿</span>
+      <span>Fysik<span class="wordmark-light">labbet</span></span>
+    </a>
+    <span class="header-note">VÅGOR · INTERAKTIVT</span>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">UTFORSKA · TESTA · FÖRSTÅ</p>
+      <h1 id="page-title">När blir en våg <span>stående?</span></h1>
+      <p class="intro-copy">Ändra våglängden och undersök vad som händer när vågen möter olika ändar.</p>
+    </section>
+
+    <section class="lab" aria-label="Interaktiv våglaboration">
+      <aside class="controls">
+        <div class="section-heading">
+          <span class="step-number">01</span>
+          <h2>Välj system</h2>
+        </div>
+
+        <div class="segmented" role="group" aria-label="Välj vågsystem">
+          <button type="button" class="system-button is-selected" data-system="string" aria-pressed="true">Sträng</button>
+          <button type="button" class="system-button" data-system="pipe" aria-pressed="false">Pipa</button>
+        </div>
+
+        <div id="pipe-options" class="pipe-options" hidden>
+          <label class="field-label" for="left-end">Vänster ände</label>
+          <select id="left-end">
+            <option value="closed">Sluten</option>
+            <option value="open">Öppen</option>
+          </select>
+          <label class="field-label" for="right-end">Höger ände</label>
+          <select id="right-end">
+            <option value="open">Öppen</option>
+            <option value="closed">Sluten</option>
+          </select>
+        </div>
+
+        <div class="section-heading wavelength-heading">
+          <span class="step-number">02</span>
+          <h2>Testa våglängd</h2>
+        </div>
+        <div class="wavelength-value">
+          <label for="wavelength">Våglängd, λ</label>
+          <output id="wavelength-output" for="wavelength">1,00 m</output>
+        </div>
+        <input id="wavelength" type="range" min="0.25" max="2.50" step="0.01" value="1.00">
+        <div class="range-labels"><span>0,25 m</span><span>2,50 m</span></div>
+        <p class="control-hint">Dra reglaget eller använd piltangenterna.</p>
+
+        <div class="section-heading length-heading">
+          <span class="step-number">03</span>
+          <h2>Vågens fas</h2>
+        </div>
+        <button id="play-button" class="play-button" type="button" aria-pressed="false">
+          <span class="play-icon" aria-hidden="true">▶</span>
+          <span>Spela vågen</span>
+        </button>
+        <p class="control-hint">Pausa för att jämföra förtätningar och förtunningar.</p>
+      </aside>
+
+      <div class="visual-panel">
+        <div class="visual-topline">
+          <div>
+            <p class="eyebrow">VÅGMÖNSTER</p>
+            <h2 id="visual-title">Transversell våg i en sträng</h2>
+          </div>
+          <span id="resonance-badge" class="status-badge" role="status">Kontrollerar …</span>
+        </div>
+
+        <div id="wave-visual" class="wave-visual" role="img" aria-label="Animerad illustration av våg i en sträng"></div>
+        <div class="visual-legend" id="visual-legend">
+          <span><i class="legend-line" aria-hidden="true"></i> Strängens utslag</span>
+          <span><i class="legend-dash" aria-hidden="true"></i> Jämviktsläge</span>
+        </div>
+
+        <div class="result-card" aria-live="polite">
+          <span id="result-symbol" class="result-symbol" aria-hidden="true">•</span>
+          <div>
+            <h3 id="result-title">Räknar ut …</h3>
+            <p id="result-copy"></p>
+          </div>
+        </div>
+
+        <div class="mode-info">
+          <div>
+            <span class="info-label">Längd</span>
+            <strong>1,00 m</strong>
+          </div>
+          <div>
+            <span class="info-label">Ändvillkor</span>
+            <strong id="boundary-summary">Fast – fast</strong>
+          </div>
+          <div>
+            <span class="info-label">Resonansvillkor</span>
+            <strong id="formula-display">L = n · λ / 2</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="learn-section" aria-labelledby="learn-title">
+      <div class="learn-heading">
+        <p class="eyebrow">FYSIKEN BAKOM</p>
+        <h2 id="learn-title">Vad ska jag titta efter?</h2>
+      </div>
+      <div class="learn-cards">
+        <article class="learn-card">
+          <span class="card-index">A</span>
+          <h3 id="concept-one-title"></h3>
+          <p id="concept-one-copy"></p>
+        </article>
+        <article class="learn-card">
+          <span class="card-index">B</span>
+          <h3 id="concept-two-title"></h3>
+          <p id="concept-two-copy"></p>
+        </article>
+        <article class="learn-card">
+          <span class="card-index">C</span>
+          <h3 id="concept-three-title"></h3>
+          <p id="concept-three-copy"></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="try-section" aria-labelledby="try-title">
+      <div>
+        <p class="eyebrow">DIN TUR</p>
+        <h2 id="try-title">Kan du hitta resonansen?</h2>
+        <p>Ändra ändarna och prova dig fram. Vilka våglängder ger ett stillastående mönster?</p>
+      </div>
+      <div class="try-mark" aria-hidden="true">λ<span>↗</span></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Fysiklabbet · Stående vågor</span>
+    <span>En modell för att utforska resonans</span>
+  </footer>
+</body>
+</html>
