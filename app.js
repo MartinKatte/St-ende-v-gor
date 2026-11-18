@@ -77,19 +77,24 @@
     const x1 = 865;
     const centerY = 106;
     const height = 72;
-    const particleCount = 62;
+    const particlesPerRow = 88;
+    const particleRows = 5;
+    const rowInset = 8;
+    const rowSpacing = (height - 2 * rowInset) / (particleRows - 1);
     const displacement = Math.max(8, Math.min(55, wavelength * 36));
     const closedLeft = configuration.leftEnd === "closed";
     const closedRight = configuration.rightEnd === "closed";
     const circles = [];
 
-    for (let index = 0; index < particleCount; index += 1) {
-      const restRatio = index / (particleCount - 1);
-      const shape = displacementShape(restRatio, configuration);
-      const x = x0 + restRatio * (x1 - x0) + displacement * shape * Math.cos(phase);
-      const boundedX = Math.max(x0 + 2, Math.min(x1 - 2, x));
-      const y = centerY + (index % 2 === 0 ? -9 : 9);
-      circles.push(`<circle cx="${boundedX.toFixed(1)}" cy="${y}" r="3.3" class="air-particle"/>`);
+    for (let row = 0; row < particleRows; row += 1) {
+      const y = centerY - height / 2 + rowInset + row * rowSpacing;
+      for (let index = 0; index < particlesPerRow; index += 1) {
+        const restRatio = index / (particlesPerRow - 1);
+        const shape = displacementShape(restRatio, configuration);
+        const x = x0 + restRatio * (x1 - x0) + displacement * shape * Math.cos(phase);
+        const boundedX = Math.max(x0 + 3, Math.min(x1 - 3, x));
+        circles.push(`<circle cx="${boundedX.toFixed(1)}" cy="${y.toFixed(1)}" r="2.4" class="air-particle"/>`);
+      }
     }
 
     return `
